@@ -14,8 +14,8 @@ import (
 )
 
 var (
-	db_file       = filepath.Join(".", "weather", "weather.db")
-	measured_data = filepath.Join(".", "weather", "measurements.txt")
+	Db_file           = filepath.Join(".", "weather", "weather.db")
+	measured_data_10k = filepath.Join(".", "weather", "measurements_10k.txt")
 )
 
 func errorCheck(err error) {
@@ -24,17 +24,17 @@ func errorCheck(err error) {
 	}
 }
 
-func OpenDB() (*sql.DB, error) {
-	// os.Remove(db_file)
-	_, err := os.Stat(db_file)
+func OpenDB(db_name string) (*sql.DB, error) {
+	os.Remove(db_name)
+	_, err := os.Stat(db_name)
 	if err != nil {
 		if os.IsNotExist(err) {
 			log.Println("File does not exist.")
-			_, e := os.Create(db_file)
+			_, e := os.Create(db_name)
 			errorCheck(e)
 		}
 	}
-	return sql.Open("sqlite3", db_file)
+	return sql.Open("sqlite3", db_name)
 }
 
 func NewWeather(city string, temp float64) w.Weather {
@@ -46,7 +46,7 @@ func NewWeather(city string, temp float64) w.Weather {
 
 func ImportData(db *w.RepositorySQLite) {
 	// Open file
-	f, err := os.Open(measured_data)
+	f, err := os.Open(measured_data_10k)
 	errorCheck(err)
 	defer f.Close()
 

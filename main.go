@@ -16,7 +16,7 @@ func errorCheck(err error) {
 
 func main() {
 
-	db, err := c.OpenDB()
+	db, err := c.OpenDB(c.Db_file)
 	errorCheck(err)
 	defer db.Close()
 
@@ -25,4 +25,5 @@ func main() {
 	errorCheck(errCreate)
 
 	c.ImportData(weatherRepository)
+	c.UniqueCitiesDB(weatherRepository)
 }

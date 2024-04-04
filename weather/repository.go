@@ -21,4 +21,5 @@ type Repository interface {
 
 	GetByCity(city string) (*Weather, error)
 	DropTable() error
+	UniqueCities(r *RepositorySQLite) ([]string, error)
 }

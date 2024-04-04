@@ -140,3 +140,23 @@ func (r *RepositorySQLite) DropTable() error {
 	_, err := r.db.Exec(query)
 	return err
 }
+
+func UniqueCities(r *RepositorySQLite) ([]string, error) {
+	query := `SELECT DISTINCT city FROM weather`
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var cities []string
+	for rows.Next() {
+		var city string
+		err := rows.Scan(&city)
+		if err != nil {
+			return nil, err
+		}
+		cities = append(cities, city)
+	}
+	return cities, nil
+}
