@@ -15,7 +15,11 @@ import (
 
 var (
 	Db_file           = filepath.Join(".", "weather", "weather.db")
-	measured_data_10k = filepath.Join(".", "weather", "measurements_10k.txt")
+	Measured_data_10k = filepath.Join(".", "weather", "measurements_10k.txt")
+	// Measured_data_1b   = filepath.Join(".", "weather", "measurements_1b.txt")
+	// Measured_data_100m = filepath.Join(".", "weather", "measurements_100m.txt")
+	// Measured_data_10m = filepath.Join(".", "weather", "measurements_10m.txt")
+	Measured_data_5m = filepath.Join(".", "weather", "measurements_5m.txt")
 )
 
 func errorCheck(err error) {
@@ -44,9 +48,9 @@ func NewWeather(city string, temp float64) w.Weather {
 	}
 }
 
-func ImportData(db *w.RepositorySQLite) {
+func ImportData(db *w.RepositorySQLite, file string) {
 	// Open file
-	f, err := os.Open(measured_data_10k)
+	f, err := os.Open(file)
 	errorCheck(err)
 	defer f.Close()
 

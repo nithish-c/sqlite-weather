@@ -24,6 +24,6 @@ func main() {
 	errCreate := weatherRepository.Migrate()
 	errorCheck(errCreate)
 
-	c.ImportData(weatherRepository)
+	c.ImportData(weatherRepository, c.Measured_data_5m)
 	c.UniqueCitiesDB(weatherRepository)
 }

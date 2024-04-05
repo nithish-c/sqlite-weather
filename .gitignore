@@ -3,3 +3,10 @@
 
 # Executables
 simple-db
+
+# Data
+*1b.txt
+*100m.txt
+*10m.txt
+
+.vscode/
